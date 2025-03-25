@@ -1,19 +1,16 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useState } from "react";
 
 const CountDownLightSwitch = () => {
   const [lightMode, setLightMode] = useState(false);
   const [timer, setTimer] = useState(30);
 
-  useEffect(() => {
+  const startTimer = () => {
     if (timer !== 0)
       setInterval(() => {
         setTimer((prev) => prev - 1);
       }, 1000);
-  }, [timer]);
-
-  const startTimer = () => {
-    setTimer(30);
+    else return;
   };
 
   const toggleLightMode = () => {
@@ -23,7 +20,7 @@ const CountDownLightSwitch = () => {
     setTimer(30);
   };
   return (
-    <div className={"container " + lightMode && "body.light"}>
+    <div className={"container" + lightMode && " body.light"}>
       {/* <!-- Header with Title and Theme Toggle --> */}
       <div className="header">
         <h1>Countdown & Light Switch</h1>
@@ -49,14 +46,17 @@ const CountDownLightSwitch = () => {
           {timer ? timer + "s" : "Time's Up!"}
         </div>
         <div className="btn-group">
-          <button id="startButton" onClick={startTimer}>
-            Start Timer
-          </button>
-          <button id="resetButton" style="display: none">
-            {" "}
-            onClick={resetTimer}
-            Reset Timer
-          </button>
+          {timer ? (
+            <button id="startButton" onClick={startTimer}>
+              Start Timer
+            </button>
+          ) : (
+            <button id="resetButton" style="display: none">
+              {" "}
+              onClick={resetTimer}
+              Reset Timer
+            </button>
+          )}
         </div>
         <div className="message" id="messageArea"></div>
       </div>
